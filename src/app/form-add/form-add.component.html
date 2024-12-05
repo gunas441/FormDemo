@@ -1,0 +1,68 @@
+<form [formGroup]="subForm" (ngSubmit)="onSubmit()">
+    <label>Name :</label><br>
+    <input type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && f['name'].errors}"><br>
+    <div *ngIf="submitted && f['name'].errors" style="color: red;">
+        <div *ngIf="f['name'].errors['required']">Name is required!</div>
+    </div>
+    <label>Email :</label><br>
+    <input type="email" formControlName="email" [ngClass]="{'is-invalid':submitted && f['email'].errors}"><br>
+    <div *ngIf="submitted && f['email'].errors" style="color: red;">
+        <div *ngIf="f['email'].errors['required']">Email is required!</div>
+        <div *ngIf="f['email'].errors['email']">Email is invalid!</div>
+    </div>
+    <label>Password :</label><br>
+    <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && f['password'].errors}"><br>
+    <div *ngIf="submitted && f['password'].errors" style="color: red;">
+        <div *ngIf="f['password'].errors['required']">Password is required!</div>
+        <div *ngIf="f['password'].errors['pattern']">
+            Password must contain:
+            <ul>
+              <li>At least one uppercase letter</li>
+              <li>At least one lowercase letter</li>
+              <li>At least one digit</li>
+              <li>At least one special character</li>
+            </ul>
+          </div>
+    </div>
+    <label>Mobile :</label><br>
+    <input type="text" formControlName="mobile" [ngClass]="{'is-invalid':submitted && f['mobile'].errors}"><br>
+    <div *ngIf="submitted && f['mobile'].errors" style="color: red;">
+        <div *ngIf="f['mobile'].errors['required']">Mobile no is required!</div>
+        <div *ngIf="f['mobile'].errors['pattern']">Please enter a valid 10-digit mobile number!</div>
+        <div *ngIf="f['mobile'].errors['maxlength']">Maximum 10 no only allowed!</div>
+    </div>
+    <label>Address :</label><br>
+    <input type="text" formControlName="address" [ngClass]="{'is-invalid':submitted && f['address'].errors}"><br>
+    <div *ngIf="submitted && f['address'].errors" style="color: red;">
+        <div *ngIf="f['address'].errors['required']">Address is required!</div>
+    </div>
+    <br>
+    <button *ngIf="!subForm.untouched" type="submit">Submit</button>
+</form>
+
+
+<!-- <div *ngIf="data!=undefined">{{data | json}}</div> -->
+
+<h1>Basic Details</h1>
+<table style="width:400px">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Mobile</th>
+      <th>Address</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let d of data;index as i">
+      <td>{{d.name}}</td>
+      <td>{{d.email}}</td>
+      <td>{{d.mobile}}</td>
+      <td>{{d.address}}</td>
+      <td><button [class.active]="isActive" 
+        [class.inactive]="!isActive" (click)="Status(i)"> {{ isActive ? 'In Active' : 'Active' }}</button>
+       </td>
+      <td><button (click)="delete(i)">Delete</button>
+            <button (click)="edit(i)">Edit</button>
+            <button (click)="update(i)">Edit</button></td>
+    </tr>
+  </table>
